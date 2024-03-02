@@ -3,6 +3,7 @@ import './globals.css'
 import { Providers } from '@/app/providers'
 import Link from 'next/link'
 import { IBM_Plex_Mono } from 'next/font/google'
+import { ThemeToggle } from '@/components/theme-toggle'
 // import { Toaster } from "@/components/ui/sonner"
 
 export const metadata: Metadata = {
@@ -35,13 +36,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className="">
+    <html lang="en" suppressHydrationWarning>
+      <body>
         <header
             className={`fixed top-0 h-5 bg-emerald-300 text-emerald-900 text-xs w-full flex items-center justify-center px-2 ${mono.className}`}
         >
             under developement...
         </header>
+        <div className='fixed top-6 right-1'>
+          <ThemeToggle />
+        </div>
         <Providers>
           {children}
         </Providers>
