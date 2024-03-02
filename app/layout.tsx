@@ -6,8 +6,22 @@ import { IBM_Plex_Mono } from 'next/font/google'
 // import { Toaster } from "@/components/ui/sonner"
 
 export const metadata: Metadata = {
-  title: 'mitism - Auth Demo',
+  title: 'mitism - Editor Demo',
   description: 'mitism portfolio',
+  icons: {
+    icon: [
+      {
+        media: "(prefers-color-scheme: light)",
+        url: "/fav-dark.png",
+        href: "/fav-dark.png",
+      },
+      {
+        media: "(prefers-color-scheme: dark)",
+        url: "/fav-light.png",
+        href: "/fav-light.png",
+      }
+    ]
+  }
 }
 
 const mono = IBM_Plex_Mono({
