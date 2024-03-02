@@ -6,7 +6,7 @@ import { IBM_Plex_Mono } from 'next/font/google'
 // import { Toaster } from "@/components/ui/sonner"
 
 export const metadata: Metadata = {
-  title: 'mitism - Editor Demo',
+  title: 'mitism - Block Editor Demo',
   description: 'mitism portfolio',
   icons: {
     icon: [
