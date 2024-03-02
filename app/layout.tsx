@@ -36,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className=''>
         <header
             className={`fixed top-0 h-5 bg-emerald-300 text-emerald-900 text-xs w-full flex items-center justify-center px-2 ${mono.className}`}
@@ -46,9 +46,9 @@ export default function RootLayout({
         <div className='fixed top-6 right-1'>
           <ThemeToggle />
         </div>
-        <Providers>
-          {children}
-        </Providers>
+          <Providers>
+            {children}
+          </Providers>
         <footer
             className={`fixed bottom-0 min-h-5 bg-black text-white text-xs w-full flex items-center justify-between px-2 ${mono.className}`}
         >
