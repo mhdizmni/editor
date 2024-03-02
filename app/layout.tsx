@@ -36,8 +36,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
+    <html lang="en">
+      <body className=''>
         <header
             className={`fixed top-0 h-5 bg-emerald-300 text-emerald-900 text-xs w-full flex items-center justify-center px-2 ${mono.className}`}
         >
