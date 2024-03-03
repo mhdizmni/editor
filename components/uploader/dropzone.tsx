@@ -28,7 +28,7 @@ interface UploaderProps {
     resetClassName?: boolean,
     onFilesChange?: (files: FilesProps[]) => void,
     config?: {},
-    gate: "article" | "ad" | "track" | "album" | "list" | "profile" | "artist" | "other",
+    gate?: "article" | "ad" | "track" | "album" | "list" | "profile" | "artist" | "other",
     id?: string,
     section?: string,
     quality?: FilesProps['quality']
