@@ -25,7 +25,7 @@ export default function Home() {
             )}
             {isSignedIn && isLoaded && (
                 <>
-                <div className="md:flex-1 w-full">
+                <div className="md:flex-1 w-full min-h-96">
                     <Editor
                         onChange={(value) => {
                             setContent(JSON.parse(value))
@@ -34,7 +34,7 @@ export default function Home() {
                 </div>
                 <Separator orientation="vertical" />
                 <Separator orientation="horizontal" className="md:hidden" />
-                <div className="md:flex-1 w-full bg-neutral-100/50">
+                <div className="md:flex-1 w-full min-h-96 bg-neutral-100/50">
                     {content ? (
                         <JsonView value={content} />
                     ): "👈 Write something to see the final JSON output!"}
