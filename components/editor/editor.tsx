@@ -4,13 +4,35 @@ import { useTheme } from "next-themes";
 
 import {
     BlockNoteEditor,
-    PartialBlock
+    PartialBlock,
+    defaultBlockSchema,
+    defaultBlockSpecs,
 } from "@blocknote/core";
 import {
     BlockNoteView,
-    useBlockNote
+    useBlockNote,
+    getDefaultReactSlashMenuItems
 } from "@blocknote/react";
 import "@blocknote/react/style.css";
+
+import { Todo, insertTodo } from "./blocks/todo";
+
+// Our block schema, which contains the configs for blocks that we want our
+// editor to use.
+export const blockSchema = {
+    // Adds all default blocks.
+    ...defaultBlockSchema,
+    // Adds the font paragraph.
+    todo: Todo.config,
+};
+// Our block specs, which contain the configs and implementations for blocks
+// that we want our editor to use.
+const blockSpecs = {
+    // Adds all default blocks.
+    ...defaultBlockSpecs,
+    // Adds the font paragraph.
+    todo: Todo,
+};
 
 interface EditorProps {
     onChange: (value: string) => void;
@@ -25,7 +47,12 @@ const Editor = ({
 }: EditorProps) => {
     const { resolvedTheme } = useTheme()
 
-    const editor: BlockNoteEditor = useBlockNote({
+    const editor = useBlockNote({
+        blockSpecs: blockSpecs,
+        slashMenuItems: [
+        ...getDefaultReactSlashMenuItems(blockSchema),
+        insertTodo,
+        ],
         editable,
         initialContent: 
             initialContent 
@@ -45,6 +72,7 @@ const Editor = ({
             editor={editor}
             theme={resolvedTheme === "dark" ? "dark" : "light"}
             className="w-full"
+            spellCheck={false}
         />
     );
 }
