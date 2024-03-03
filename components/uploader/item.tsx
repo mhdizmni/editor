@@ -23,7 +23,7 @@ import {
 import { Trash2, X } from "lucide-react";
 
 import VideoPlayer from "@/components/video/player";
-import { Spinner } from "@/components//loaders/spinner";
+import { Spinner } from "@/components//spinner";
 
 export const Item = ({
     item,
