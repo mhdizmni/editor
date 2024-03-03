@@ -4,6 +4,7 @@ import { Providers } from '@/app/providers'
 import Link from 'next/link'
 import { IBM_Plex_Mono } from 'next/font/google'
 import { ThemeToggle } from '@/components/theme-toggle'
+import { UserBox } from '@/components/user'
 // import { Toaster } from "@/components/ui/sonner"
 
 export const metadata: Metadata = {
@@ -38,27 +39,28 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className=''>
-        <header
-            className={`fixed top-0 h-5 bg-emerald-300 text-emerald-900 text-xs w-full flex items-center justify-center px-2 ${mono.className}`}
-        >
-            under developement...
-        </header>
-        <div className='fixed top-6 right-1'>
-          <ThemeToggle />
-        </div>
-          <Providers>
-            {children}
-          </Providers>
-        <footer
-            className={`fixed bottom-0 min-h-5 bg-black text-white text-xs w-full flex items-center justify-between px-2 ${mono.className}`}
-        >
-            <div>
-                © {new Date().getFullYear()} <Link href="https://mitism.com" target="_blank" className="underline">mitism.com</Link>
-            </div>
-            <div>
-                Demo: Block Editor
-            </div>
-        </footer>
+        <Providers>
+          <header
+              className={`fixed top-0 h-5 bg-emerald-300 text-emerald-900 text-xs w-full flex items-center justify-center px-2 ${mono.className}`}
+          >
+              under developement...
+          </header>
+              <div className='fixed top-5 right-0 p-2 flex items-center justify-between w-full bg-neutral-200 dark:bg-neutral-900'>
+                <UserBox />
+                <ThemeToggle />
+              </div>
+              {children}
+          <footer
+              className={`fixed bottom-0 min-h-5 bg-black text-white dark:bg-white dark:text-black text-xs w-full flex items-center justify-between px-2 ${mono.className}`}
+              >
+              <div>
+                  © {new Date().getFullYear()} <Link href="https://mitism.com" target="_blank" className="underline">mitism.com</Link>
+              </div>
+              <div>
+                  Demo: Block Editor
+              </div>
+          </footer>
+        </Providers>
         {/* <Toaster /> */}
       </body>
     </html>
