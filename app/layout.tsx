@@ -41,11 +41,11 @@ export default function RootLayout({
       <body className=''>
         <Providers>
           <header
-              className={`fixed top-0 h-5 bg-emerald-300 text-emerald-900 text-xs w-full flex items-center justify-center px-2 ${mono.className}`}
+              className={`z-[99999] fixed top-0 h-5 bg-emerald-300 text-emerald-900 text-xs w-full flex items-center justify-center px-2 ${mono.className}`}
           >
               under developement...
           </header>
-              <div className='fixed top-5 right-0 p-2 flex items-center justify-between w-full bg-neutral-200 dark:bg-neutral-900'>
+              <div className='z-[99999] fixed top-5 right-0 p-2 flex items-center justify-between w-full bg-neutral-200 dark:bg-neutral-900'>
                 <UserBox />
                 <ThemeToggle />
               </div>
