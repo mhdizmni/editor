@@ -1,19 +1,18 @@
 'use client'
 import { Spinner } from '@/components/spinner';
 import { Button } from '@/components/ui/button';
-import { SignInButton, SignOutButton, useUser } from '@clerk/clerk-react';
-import { useConvexAuth } from 'convex/react';
+import { SignInButton, SignOutButton, useAuth, useUser } from '@clerk/clerk-react';
 
 export const UserBox = () => {
-    const { isLoading, isAuthenticated } = useConvexAuth();
+    const { isSignedIn, isLoaded } = useAuth();
     const { user } = useUser();
 
     return (
         <>
-            {isLoading && (
+            {!isLoaded && (
                 <Spinner className='h-5 w-5 dark:text-white' />
             )}
-            {isAuthenticated && !isLoading && (
+            {isSignedIn && isLoaded && (
                 <div className='flex items-center justify-center gap-2'>
                     <div>hi <b>{user?.firstName}</b></div>
                     <Button variant="outline" asChild>
@@ -21,7 +20,7 @@ export const UserBox = () => {
                     </Button>
                 </div>
             )}
-            {!isAuthenticated && !isLoading && (
+            {!isSignedIn && isLoaded  && (
                 <Button asChild>
                     <SignInButton redirectUrl='/' />
                 </Button>
