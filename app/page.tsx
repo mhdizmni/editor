@@ -20,7 +20,7 @@ export default function Home() {
     const [content, setContent] = useState<JSON | null>(null);
     return (
         <main
-            className={`flex min-h-screen md:flex-row flex-col items-start justify-between gap-2 mt-24 mb-10 m-4 p-2 rounded ${isAuthenticated && !isLoading && "border shadow"}`}
+            className={`flex min-h-screen md:flex-row flex-col items-center md:items-start justify-start md:justify-center gap-2 mt-24 mb-10 m-4 p-2 rounded ${isAuthenticated && !isLoading && "border shadow"}`}
         >
             {isLoading && (
                 <Spinner className='h-5 w-5 dark:text-white' />
@@ -35,6 +35,7 @@ export default function Home() {
                     />
                 </div>
                 <Separator orientation="vertical" />
+                <Separator orientation="horizontal" className="md:hidden" />
                 <div className="md:flex-1 w-full bg-neutral-100/50">
                     {content ? (
                         <JsonView value={content} />
