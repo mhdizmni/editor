@@ -39,7 +39,7 @@ export default function Home() {
                 <div className="md:flex-1 w-full bg-neutral-100/50">
                     {content ? (
                         <JsonView value={content} />
-                    ): "👈 write something!"}
+                    ): "👈 Write something to see the final JSON output!"}
                 </div>
                 </>
             )}
