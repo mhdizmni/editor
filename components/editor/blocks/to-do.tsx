@@ -7,9 +7,11 @@ import {
 } from "@blocknote/react";
 import { blockSchema } from "../editor";
 
+import { cn } from "@/lib/utils";
+import { getDirection } from "../tools";
+
 import Image from "next/image";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 
 // Creates a paragraph block with custom font.
 export const Todo = createReactBlockSpec(
@@ -20,11 +22,39 @@ export const Todo = createReactBlockSpec(
             checked: {
                 default: false
             },
+            direction: {
+                default: "rtl"
+            },
+            textAlignment: {
+                default: "right"
+            },
+            customDirection: {
+                default: false
+            },
+            customAlignment: {
+                default: false
+            }
         },
         content: "inline",
     },
     {
         render: ({ block, editor, contentRef }) => {
+            const textAlignment = block.props.textAlignment;
+
+            let direction = block.props.direction;
+            if (block.content?.[0] && !block.props.customDirection) {
+                let handleDirection;
+                if ('text' in block.content[0]) {
+                    handleDirection = getDirection(block.content[0].text);
+                } else {
+                    handleDirection = getDirection(null);
+                }
+                editor.updateBlock(block, { props: {
+                    ...block.props,
+                    direction: handleDirection
+                } });
+            }
+            // todo: check custom direction & alignment
             let isChecked = block.props.checked;
             const handleChecked = (value: boolean | 'indeterminate') => {
                 let checked;
@@ -41,9 +71,22 @@ export const Todo = createReactBlockSpec(
             }
         
             return (
-                <div className="flex items-start gap-2">
-                    <Checkbox name={block.id} checked={isChecked} onCheckedChange={handleChecked}/>
-                    <Label htmlFor={block.id} ref={contentRef} className={isChecked ? "line-through text-neutral-500" : ""}></Label>
+                <div className="flex items-start gap-2" dir={direction}>
+                    <div className="w-6 h-6 flex items-center justify-center">
+                        <Checkbox
+                            checked={isChecked}
+                            onCheckedChange={handleChecked}
+                            className="w-4 h-4 rounded-sm"
+                        />
+                    </div>
+                    <div
+                        ref={contentRef}
+                        className={cn(
+                            "leading-6 w-full",
+                            {"line-through text-neutral-500": isChecked}
+                        )}
+                        data-text-alignment={textAlignment}
+                    />
                 </div>
             );
         },
@@ -64,7 +107,7 @@ export const Todo = createReactBlockSpec(
 export const insertTodo: ReactSlashMenuItem<typeof blockSchema> = {
     name: "To-do list",
     execute: (editor) => {
-        editor.insertBlocks(
+        const insertedBlock = editor.insertBlocks(
             [
                 {
                     type: "todo",
@@ -73,8 +116,9 @@ export const insertTodo: ReactSlashMenuItem<typeof blockSchema> = {
             editor.getTextCursorPosition().block,
             "after"
         );
+        editor.setTextCursorPosition(insertedBlock[0], 'start');
     },
-    aliases: ["todo", "to-do", "check"],
+    aliases: ["todo", "to-do", "check", "checkmark", "task"],
     group: "Basic blocks",
     icon:   <Image
                 src="/blocks/to-do.png"

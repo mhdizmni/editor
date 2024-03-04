@@ -50,8 +50,8 @@ const Editor = ({
     const editor = useBlockNote({
         blockSpecs: blockSpecs,
         slashMenuItems: [
-        ...getDefaultReactSlashMenuItems(blockSchema),
-        insertTodo,
+            ...getDefaultReactSlashMenuItems(blockSchema),
+            insertTodo,
         ],
         editable,
         initialContent: 
@@ -64,7 +64,7 @@ const Editor = ({
         uploadFile: async (file: File) => {
             const response = await "hi";
             return "hi"
-        }
+        },
     });
 
     return (
