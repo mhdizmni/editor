@@ -15,7 +15,7 @@ import {
 } from "@blocknote/react";
 import "@blocknote/react/style.css";
 
-import { Todo, insertTodo } from "./blocks/todo";
+import { Todo, insertTodo } from "./blocks/to-do";
 
 // Our block schema, which contains the configs for blocks that we want our
 // editor to use.
