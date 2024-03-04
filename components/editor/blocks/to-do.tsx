@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import {
     defaultProps,
 } from "@blocknote/core";
@@ -26,14 +24,26 @@ export const Todo = createReactBlockSpec(
         content: "inline",
     },
     {
-        render: ({ block, contentRef }) => {
-            const isChecked = block.props.checked
-            const [checked, setChecked] = useState<boolean | 'indeterminate'>(isChecked);
+        render: ({ block, editor, contentRef }) => {
+            let isChecked = block.props.checked;
+            const handleChecked = (value: boolean | 'indeterminate') => {
+                let checked;
+                if (value === 'indeterminate') {
+                    checked = false;
+                } else {
+                    checked = value;
+                }
+
+                editor.updateBlock(block, { props: {
+                    ...block.props,
+                    checked: checked
+                } });
+            }
         
             return (
                 <div className="flex items-start gap-2">
-                    <Checkbox name={block.id} onCheckedChange={setChecked}/>
-                    <Label htmlFor={block.id} ref={contentRef} className={checked ? "line-through text-neutral-500" : ""}></Label>
+                    <Checkbox name={block.id} checked={isChecked} onCheckedChange={handleChecked}/>
+                    <Label htmlFor={block.id} ref={contentRef} className={isChecked ? "line-through text-neutral-500" : ""}></Label>
                 </div>
             );
         },
@@ -54,8 +64,6 @@ export const Todo = createReactBlockSpec(
 export const insertTodo: ReactSlashMenuItem<typeof blockSchema> = {
     name: "To-do list",
     execute: (editor) => {
-        // const font = prompt("Enter font name");
-
         editor.insertBlocks(
             [
                 {
