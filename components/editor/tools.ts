@@ -1,6 +1,6 @@
 export const getDirection = (text: string | null) => {
     if (!text) {
-        return "rtl";
+        return "right";
     }
     // Remove numbers and spaces from the beginning of the text
     const trimmedText = text.replace(/^[\d\s]+/, "");
@@ -15,5 +15,5 @@ export const getDirection = (text: string | null) => {
     const isRtl = rtlRegex.test(firstChar);
 
     // Return direction based on the first character
-    return isRtl ? "rtl" : "ltr";
+    return isRtl ? "right" : "left";
 }

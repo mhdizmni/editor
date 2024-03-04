@@ -13,22 +13,21 @@ import {
 } from "@blocknote/react";
 import "@blocknote/react/style.css";
 
+import { Text, insertText } from "./blocks/text";
 import { Todo, insertTodo } from "./blocks/to-do";
 
 // Our block schema, which contains the configs for blocks that we want our
 // editor to use.
 export const blockSchema = {
-    // Adds all default blocks.
     ...defaultBlockSchema,
-    // Adds the font paragraph.
+    paragraph: Text.config,
     todo: Todo.config,
 };
 // Our block specs, which contain the configs and implementations for blocks
 // that we want our editor to use.
 const blockSpecs = {
-    // Adds all default blocks.
     ...defaultBlockSpecs,
-    // Adds the font paragraph.
+    paragraph: Text,
     todo: Todo,
 };
 

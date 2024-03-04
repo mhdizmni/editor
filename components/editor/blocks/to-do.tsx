@@ -1,14 +1,16 @@
 import {
-    defaultProps,
-} from "@blocknote/core";
+    extendedDefaultProps,
+} from "../data";
+import { getDirection } from "../tools";
+import { blockSchema } from "../editor";
+
+import { cn } from "@/lib/utils";
+
 import {
     createReactBlockSpec,
     ReactSlashMenuItem,
 } from "@blocknote/react";
-import { blockSchema } from "../editor";
 
-import { cn } from "@/lib/utils";
-import { getDirection } from "../tools";
 
 import Image from "next/image";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -18,22 +20,10 @@ export const Todo = createReactBlockSpec(
     {
         type: "todo",
         propSchema: {
-            ...defaultProps,
+            ...extendedDefaultProps,
             checked: {
                 default: false
             },
-            textDirection: {
-                default: "rtl"
-            },
-            textAlignment: {
-                default: "right"
-            },
-            customDirection: {
-                default: false
-            },
-            customAlignment: {
-                default: false
-            }
         },
         content: "inline",
     },
@@ -42,7 +32,7 @@ export const Todo = createReactBlockSpec(
             const textAlignment = block.props.textAlignment;
 
             let direction = block.props.textDirection;
-            if (block.content?.[0] && !block.props.customDirection) {
+            if (block.content?.[0] && !block.props.customTextDirection) {
                 let handleDirection;
                 if ('text' in block.content[0]) {
                     handleDirection = getDirection(block.content[0].text);
@@ -52,7 +42,7 @@ export const Todo = createReactBlockSpec(
                 editor.updateBlock(block, { props: {
                     ...block.props,
                     textDirection: handleDirection
-                } });
+                }});
             }
             // todo: check custom direction & alignment
             let isChecked = block.props.checked;
@@ -67,11 +57,11 @@ export const Todo = createReactBlockSpec(
                 editor.updateBlock(block, { props: {
                     ...block.props,
                     checked: checked
-                } });
+                }});
             }
         
             return (
-                <div className="flex items-start gap-2" dir={direction}>
+                <div className="flex items-start gap-2" dir={direction === "right" ? "rtl" : "ltr"}>
                     <div className="w-6 h-6 flex items-center justify-center">
                         <Checkbox
                             checked={isChecked}
