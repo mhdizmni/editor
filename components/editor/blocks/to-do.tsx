@@ -22,7 +22,7 @@ export const Todo = createReactBlockSpec(
             checked: {
                 default: false
             },
-            direction: {
+            textDirection: {
                 default: "rtl"
             },
             textAlignment: {
@@ -41,7 +41,7 @@ export const Todo = createReactBlockSpec(
         render: ({ block, editor, contentRef }) => {
             const textAlignment = block.props.textAlignment;
 
-            let direction = block.props.direction;
+            let direction = block.props.textDirection;
             if (block.content?.[0] && !block.props.customDirection) {
                 let handleDirection;
                 if ('text' in block.content[0]) {
@@ -51,7 +51,7 @@ export const Todo = createReactBlockSpec(
                 }
                 editor.updateBlock(block, { props: {
                     ...block.props,
-                    direction: handleDirection
+                    textDirection: handleDirection
                 } });
             }
             // todo: check custom direction & alignment
