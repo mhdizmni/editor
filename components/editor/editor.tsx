@@ -3,15 +3,13 @@
 import { useTheme } from "next-themes";
 
 import {
-    BlockNoteEditor,
-    PartialBlock,
     defaultBlockSchema,
     defaultBlockSpecs,
 } from "@blocknote/core";
 import {
     BlockNoteView,
     useBlockNote,
-    getDefaultReactSlashMenuItems
+    getDefaultReactSlashMenuItems,
 } from "@blocknote/react";
 import "@blocknote/react/style.css";
 
@@ -73,7 +71,8 @@ const Editor = ({
             theme={resolvedTheme === "dark" ? "dark" : "light"}
             className="w-full"
             spellCheck={false}
-        />
+        >
+        </BlockNoteView>
     );
 }
 
