@@ -16,6 +16,7 @@ import "./styles.css";
 
 import { Text, insertText } from "./blocks/text";
 import { Todo, insertTodo } from "./blocks/todo";
+import { Heading1, insertHeading1 } from "./blocks/headings";
 
 // Our block schema, which contains the configs for blocks that we want our
 // editor to use.
@@ -23,20 +24,21 @@ export const blockSchema = {
     ...defaultBlockSchema,
     paragraph: Text.config,
     todo: Todo.config,
-    // heading: Heading.config,
+    heading1: Heading1.config,
 };
 
 const blockSpecs = {
     ...defaultBlockSpecs,
     paragraph: Text,
     todo: Todo,
-    // heading: Heading
+    heading1: Heading1
 };
 
 const slashMenuItems = [
     ...getDefaultReactSlashMenuItems(blockSchema),
     insertText,
     insertTodo,
+    insertHeading1
 ];
 
 interface EditorProps {
