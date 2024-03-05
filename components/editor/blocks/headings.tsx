@@ -35,27 +35,22 @@ const implementation = (block: any, editor: any, contentRef: (node: HTMLElement 
     let fontSize;
     switch (level) {
         case 1:
-            Container = "h2",
+            Container = "h2" as keyof JSX.IntrinsicElements,
             fontSize = "text-4xl"
             break;
         case 2:
-            Container = "h3",
+            Container = "h3" as keyof JSX.IntrinsicElements,
             fontSize = "text-3xl"
             break;
         case 3:
-            Container = "h4",
+            Container = "h4" as keyof JSX.IntrinsicElements,
             fontSize = "text-2xl"
             break;
     }
 
-    let ContainerElement: keyof JSX.IntrinsicElements = "div"; // default value
-    if (Container === "h2" || Container === "h3" || Container === "h4") {
-        ContainerElement = Container;
-    }
-
     return (
         <div className="relative" dir={directions.dir === "right" ? "rtl" : "ltr"}>
-            <ContainerElement
+            <Container
                 ref={contentRef}
                 className={cn(
                     "w-full",
