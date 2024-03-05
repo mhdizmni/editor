@@ -65,7 +65,7 @@ export const Todo = createReactBlockSpec(
                         data-text-alignment={directions.alignment}
                         data-empty={directions.isEmpty}
                         data-placeholder="Todo"
-                        data-placeholder-fa="لیست تسک ها"
+                        data-placeholder-fa="تسک"
                     />
                 </div>
             );
