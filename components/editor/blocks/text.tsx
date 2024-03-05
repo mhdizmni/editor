@@ -1,7 +1,7 @@
 import {
     extendedDefaultProps,
 } from "../data";
-import { getDirection } from "../tools";
+import { handleDirections } from "../tools";
 import { blockSchema } from "../editor";
 
 import { cn } from "@/lib/utils";
@@ -11,11 +11,8 @@ import {
     ReactSlashMenuItem,
 } from "@blocknote/react";
 
-
 import Image from "next/image";
-import { Checkbox } from "@/components/ui/checkbox";
 
-// Creates a paragraph block with custom font.
 export const Text = createReactBlockSpec(
     {
         type: "paragraph",
@@ -29,22 +26,7 @@ export const Text = createReactBlockSpec(
     },
     {
         render: ({ block, editor, contentRef }) => {
-            const textAlignment = block.props.textAlignment;
-
-            let direction = block.props.textDirection;
-            if (block.content?.[0] && !block.props.customTextDirection) {
-                let handleDirection;
-                if ('text' in block.content[0]) {
-                    handleDirection = getDirection(block.content[0].text);
-                } else {
-                    handleDirection = getDirection(null);
-                }
-                editor.updateBlock(block, { props: {
-                    ...block.props,
-                    textDirection: handleDirection,
-                    textAlignment: !block.props.customTextAlignment ? handleDirection as typeof textAlignment : block.props.textAlignment
-                }});
-            }
+            let directions = handleDirections(block, editor);
         
             return (
                 <div
@@ -52,15 +34,14 @@ export const Text = createReactBlockSpec(
                     className={cn(
                         "leading-6 w-full",
                     )}
-                    data-text-alignment={textAlignment}
-                    dir={direction === "right" ? "rtl" : "ltr"}
+                    data-text-alignment={directions.alignment}
+                    dir={directions.dir === "right" ? "rtl" : "ltr"}
                 />
             );
         },
     }
 );
 
-// Creates a slash menu item for inserting a font paragraph block.
 export const insertText: ReactSlashMenuItem<typeof blockSchema> = {
     name: "Text",
     execute: (editor) => {

@@ -27,7 +27,7 @@ export const blockSchema = {
 // that we want our editor to use.
 const blockSpecs = {
     ...defaultBlockSpecs,
-    // paragraph: Text,
+    paragraph: Text,
     todo: Todo,
 };
 

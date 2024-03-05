@@ -11,7 +11,6 @@ import {
     ReactSlashMenuItem,
 } from "@blocknote/react";
 
-
 import Image from "next/image";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -91,14 +90,17 @@ export const insertTodo: ReactSlashMenuItem<typeof blockSchema> = {
             "after"
         );
         editor.setTextCursorPosition(insertedBlock[0], 'start');
+        // console.log(editor.getTextCursorPosition().prevBlock)
+        // editor.updateBlock(insertedBlock[0], { props: {
+        //     checked: true
+        // } });
     },
     aliases: ["todo", "to-do", "check", "checkmark", "task"],
     group: "Basic blocks",
     icon:   <Image
                 src="/blocks/to-do.png"
-                className="bg-red"
                 alt="To Do"
-                width={46}
-                height={46}
+                width={15}
+                height={15}
             />,
 };
