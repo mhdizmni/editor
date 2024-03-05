@@ -1,0 +1,23 @@
+.editor {
+    [data-empty="true"]::after {
+        @apply absolute top-0 text-neutral-400
+    }
+    .bn-react-node-view-renderer {
+        &:not(.bn-has-anchor) {
+            [data-empty="true"][data-placeholder-fa]::after {
+                content: attr(data-placeholder);
+            }
+            [dir="rtl"] [data-empty="true"][data-placeholder-fa]::after {
+                content: attr(data-placeholder-fa);
+            }
+        }
+        &.bn-has-anchor {
+            [data-empty="true"]::after {
+                content: "Press ‘/’ for commands…";
+            }
+            [dir="rtl"] [data-empty="true"]::after {
+                content: "چیزی بنویسید و یا برای گزینه\200cها ‘/’ را تایپ کنید...";
+            }
+        }
+    }
+}

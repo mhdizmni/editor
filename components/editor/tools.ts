@@ -18,10 +18,13 @@ const getDirection = (text: string | null) => {
     return isRtl ? "right" : "left";
 }
 
-const handleDirections = (block: any, editor: any) => {
-    // todo: check custom direction & alignment
+const handleDirections = (
+    block: any,
+    editor: any
+) => {
     const alignment = block.props.textAlignment;
     const direction = block.props.textDirection;
+    let hasValue = !!block.content?.[0] ? true : false;
 
     if (block.content?.[0] && block.props.customTextDirection === false) {
         let handledDirection;
@@ -45,11 +48,33 @@ const handleDirections = (block: any, editor: any) => {
 
     return {
         dir: direction,
-        alignment
+        alignment,
+        isEmpty: !hasValue
     };
+}
+
+const handleExecute = (
+    editor: any,
+    type: string
+) => {
+    const currentBlock = editor.getTextCursorPosition().block;
+    let insertedBlock = editor.insertBlocks(
+        [
+            {
+                type: type,
+            },
+        ],
+        editor.getTextCursorPosition().block,
+        "before"
+    );
+    editor.removeBlocks([currentBlock])
+    editor.setTextCursorPosition(insertedBlock[0], "start");
+
+    return insertedBlock[0];
 }
 
 export {
     getDirection,
-    handleDirections
+    handleDirections,
+    handleExecute
 }

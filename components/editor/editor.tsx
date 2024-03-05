@@ -12,24 +12,32 @@ import {
     getDefaultReactSlashMenuItems,
 } from "@blocknote/react";
 import "@blocknote/react/style.css";
+import "./styles.css";
 
 import { Text, insertText } from "./blocks/text";
-import { Todo, insertTodo } from "./blocks/to-do";
+import { Todo, insertTodo } from "./blocks/todo";
 
 // Our block schema, which contains the configs for blocks that we want our
 // editor to use.
 export const blockSchema = {
     ...defaultBlockSchema,
-    // paragraph: Text.config,
+    paragraph: Text.config,
     todo: Todo.config,
+    // heading: Heading.config,
 };
-// Our block specs, which contain the configs and implementations for blocks
-// that we want our editor to use.
+
 const blockSpecs = {
     ...defaultBlockSpecs,
     paragraph: Text,
     todo: Todo,
+    // heading: Heading
 };
+
+const slashMenuItems = [
+    ...getDefaultReactSlashMenuItems(blockSchema),
+    insertText,
+    insertTodo,
+];
 
 interface EditorProps {
     onChange: (value: string) => void;
@@ -46,10 +54,7 @@ const Editor = ({
 
     const editor = useBlockNote({
         blockSpecs: blockSpecs,
-        slashMenuItems: [
-            ...getDefaultReactSlashMenuItems(blockSchema),
-            insertTodo,
-        ],
+        slashMenuItems: slashMenuItems,
         editable,
         initialContent: 
             initialContent 
@@ -68,9 +73,10 @@ const Editor = ({
         <BlockNoteView
             editor={editor}
             theme={resolvedTheme === "dark" ? "dark" : "light"}
-            className="w-full"
+            className="editor w-full"
             spellCheck={false}
         >
+            
         </BlockNoteView>
     );
 }

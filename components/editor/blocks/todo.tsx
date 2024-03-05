@@ -1,7 +1,10 @@
 import {
     extendedDefaultProps,
 } from "../data";
-import { handleDirections } from "../tools";
+import {
+    handleDirections,
+    handleExecute
+} from "../tools";
 import { blockSchema } from "../editor";
 
 import { cn } from "@/lib/utils";
@@ -30,7 +33,7 @@ export const Todo = createReactBlockSpec(
             let directions = handleDirections(block, editor);
 
             let isChecked = block.props.checked;
-            const handleChecked = (value: boolean | 'indeterminate') => {
+            const handleCheck = (value: boolean | 'indeterminate') => {
                 let checked;
                 if (value === 'indeterminate') {
                     checked = false;
@@ -45,11 +48,11 @@ export const Todo = createReactBlockSpec(
             }
         
             return (
-                <div className="flex items-start gap-2" dir={directions.dir === "right" ? "rtl" : "ltr"}>
+                <div className="relative flex items-start gap-2" dir={directions.dir === "right" ? "rtl" : "ltr"}>
                     <div className="w-6 h-6 flex items-center justify-center">
                         <Checkbox
                             checked={isChecked}
-                            onCheckedChange={handleChecked}
+                            onCheckedChange={handleCheck}
                             className="w-4 h-4 rounded-sm"
                         />
                     </div>
@@ -60,6 +63,9 @@ export const Todo = createReactBlockSpec(
                             {"line-through text-neutral-500": isChecked}
                         )}
                         data-text-alignment={directions.alignment}
+                        data-empty={directions.isEmpty}
+                        data-placeholder="Todo"
+                        data-placeholder-fa="لیست تسک ها"
                     />
                 </div>
             );
@@ -80,25 +86,17 @@ export const Todo = createReactBlockSpec(
 export const insertTodo: ReactSlashMenuItem<typeof blockSchema> = {
     name: "To-do list",
     execute: (editor) => {
-        const insertedBlock = editor.insertBlocks(
-            [
-                {
-                    type: "todo",
-                },
-            ],
-            editor.getTextCursorPosition().block,
-            "after"
-        );
-        editor.setTextCursorPosition(insertedBlock[0], 'start');
-        // console.log(editor.getTextCursorPosition().prevBlock)
-        // editor.updateBlock(insertedBlock[0], { props: {
-        //     checked: true
-        // } });
+        handleExecute(editor, "todo");
     },
-    aliases: ["todo", "to-do", "check", "checkmark", "task"],
+    aliases: [
+        "todo",
+        "to-do",
+        "checkmark",
+        "task"
+    ],
     group: "Basic blocks",
     icon:   <Image
-                src="/blocks/to-do.png"
+                src="/editor/blocks/todo.png"
                 alt="To Do"
                 width={15}
                 height={15}
