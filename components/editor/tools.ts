@@ -1,4 +1,4 @@
-export const getDirection = (text: string | null) => {
+const getDirection = (text: string | null) => {
     if (!text) {
         return "right";
     }
@@ -16,4 +16,40 @@ export const getDirection = (text: string | null) => {
 
     // Return direction based on the first character
     return isRtl ? "right" : "left";
+}
+
+const handleDirections = (block: any, editor: any) => {
+    // todo: check custom direction & alignment
+    const alignment = block.props.textAlignment;
+    const direction = block.props.textDirection;
+
+    if (block.content?.[0] && block.props.customTextDirection === false) {
+        let handledDirection;
+        let handledAlignment = alignment;
+
+        if ('text' in block.content[0]) {
+            handledDirection = getDirection(block.content[0].text);
+        } else {
+            handledDirection = getDirection(null);
+        }
+
+        if (block.props.customTextAlignment === false) {
+            handledAlignment = handledDirection;
+        }
+        editor.updateBlock(block, { props: {
+            ...block.props,
+            textDirection: handledDirection,
+            textAlignment: handledAlignment
+        }});
+    }
+
+    return {
+        dir: direction,
+        alignment
+    };
+}
+
+export {
+    getDirection,
+    handleDirections
 }

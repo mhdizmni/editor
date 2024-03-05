@@ -20,14 +20,14 @@ import { Todo, insertTodo } from "./blocks/to-do";
 // editor to use.
 export const blockSchema = {
     ...defaultBlockSchema,
-    paragraph: Text.config,
+    // paragraph: Text.config,
     todo: Todo.config,
 };
 // Our block specs, which contain the configs and implementations for blocks
 // that we want our editor to use.
 const blockSpecs = {
     ...defaultBlockSpecs,
-    paragraph: Text,
+    // paragraph: Text,
     todo: Todo,
 };
 

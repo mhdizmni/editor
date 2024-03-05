@@ -1,7 +1,7 @@
 import {
     extendedDefaultProps,
 } from "../data";
-import { getDirection } from "../tools";
+import { handleDirections } from "../tools";
 import { blockSchema } from "../editor";
 
 import { cn } from "@/lib/utils";
@@ -15,7 +15,6 @@ import {
 import Image from "next/image";
 import { Checkbox } from "@/components/ui/checkbox";
 
-// Creates a paragraph block with custom font.
 export const Todo = createReactBlockSpec(
     {
         type: "todo",
@@ -29,22 +28,8 @@ export const Todo = createReactBlockSpec(
     },
     {
         render: ({ block, editor, contentRef }) => {
-            const textAlignment = block.props.textAlignment;
+            let directions = handleDirections(block, editor);
 
-            let direction = block.props.textDirection;
-            if (block.content?.[0] && !block.props.customTextDirection) {
-                let handleDirection;
-                if ('text' in block.content[0]) {
-                    handleDirection = getDirection(block.content[0].text);
-                } else {
-                    handleDirection = getDirection(null);
-                }
-                editor.updateBlock(block, { props: {
-                    ...block.props,
-                    textDirection: handleDirection
-                }});
-            }
-            // todo: check custom direction & alignment
             let isChecked = block.props.checked;
             const handleChecked = (value: boolean | 'indeterminate') => {
                 let checked;
@@ -61,7 +46,7 @@ export const Todo = createReactBlockSpec(
             }
         
             return (
-                <div className="flex items-start gap-2" dir={direction === "right" ? "rtl" : "ltr"}>
+                <div className="flex items-start gap-2" dir={directions.dir === "right" ? "rtl" : "ltr"}>
                     <div className="w-6 h-6 flex items-center justify-center">
                         <Checkbox
                             checked={isChecked}
@@ -75,7 +60,7 @@ export const Todo = createReactBlockSpec(
                             "leading-6 w-full",
                             {"line-through text-neutral-500": isChecked}
                         )}
-                        data-text-alignment={textAlignment}
+                        data-text-alignment={directions.alignment}
                     />
                 </div>
             );
@@ -93,7 +78,6 @@ export const Todo = createReactBlockSpec(
     }
 );
 
-// Creates a slash menu item for inserting a font paragraph block.
 export const insertTodo: ReactSlashMenuItem<typeof blockSchema> = {
     name: "To-do list",
     execute: (editor) => {
@@ -112,8 +96,9 @@ export const insertTodo: ReactSlashMenuItem<typeof blockSchema> = {
     group: "Basic blocks",
     icon:   <Image
                 src="/blocks/to-do.png"
+                className="bg-red"
                 alt="To Do"
-                width={15}
-                height={15}
+                width={46}
+                height={46}
             />,
 };
