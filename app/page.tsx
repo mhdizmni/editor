@@ -18,7 +18,7 @@ export default function Home() {
     const [content, setContent] = useState<JSON | null>(null);
     return (
         <main
-            className={`flex min-h-screen md:flex-row flex-col items-center md:items-start justify-start md:justify-center gap-2 mt-28 mb-10 m-4 p-2 rounded ${isSignedIn && isLoaded && "border shadow"}`}
+            className={`flex min-h-screen md:flex-row flex-col items-center md:items-start justify-start md:justify-center gap-2 mt-32 mb-10 m-4 p-2 rounded ${isSignedIn && isLoaded && "border shadow"}`}
         >
             <div className="md:flex-1 w-full min-h-96">
                     <Editor
