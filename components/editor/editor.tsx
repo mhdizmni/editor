@@ -4,11 +4,46 @@ import { useTheme } from "next-themes";
 
 import {
     BlockNoteView,
+    SuggestionMenuController,
     useCreateBlockNote,
+    getDefaultReactSlashMenuItems,
 } from "@blocknote/react";
+import {
+    BlockNoteSchema,
+    defaultBlockSchema,
+    defaultBlockSpecs,
+    filterSuggestionItems
+} from "@blocknote/core";
 
 import "@blocknote/react/style.css";
 import "./styles.css";
+import { Bullet, insertBullet } from "./blocks/bullets";
+
+export const schema = BlockNoteSchema.create({
+    blockSpecs: {
+      // enable the default blocks if desired
+      ...defaultBlockSpecs,
+
+      bullet: Bullet
+   
+      // Add your own custom blocks:
+      // customBlock: CustomBlock,
+    },
+    // inlineContentSpecs: {
+    //   // enable the default inline content if desired
+    //   ...defaultInlineContentSpecs,
+   
+    //   // Add your own custom inline content:
+    //   // customInlineContent: CustomInlineContent,
+    // },
+    // styleSpecs: {
+    //   // enable the default styles if desired
+    //   ...defaultStyleSpecs,
+   
+    //   // Add your own custom styles:
+    //   // customStyle: CustomStyle
+    // },
+});
 
 interface EditorProps {
     initialContent?: string;
@@ -50,7 +85,7 @@ const Editor = ({
             return "hi"
         },
         // collaboration,
-        // schema,
+        schema: schema,
     });
     return (
         <BlockNoteView
@@ -72,7 +107,20 @@ const Editor = ({
             // slashMenu?: boolean;
             // imageToolbar?: boolean;
             // tableHandles?: boolean;
-        />
+        >
+            <SuggestionMenuController
+                triggerCharacter={"/"}
+                getItems={async (query) =>
+                    filterSuggestionItems(
+                        [
+                            ...getDefaultReactSlashMenuItems(editor),
+                            insertBullet(editor)
+                        ],
+                        query
+                    )
+                }
+            />
+        </BlockNoteView>
     );
 }
 

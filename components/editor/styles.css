@@ -1,9 +1,9 @@
 .editor {
-    @apply w-full
-    /* [data-empty="true"]::after {
+    @apply w-full;
+    [data-empty="true"]::after {
         @apply absolute top-0 text-neutral-400
     }
-    .bn-react-node-view-renderer {
+    .editor-block {
         &:not(.bn-has-anchor) {
             [data-empty="true"][data-placeholder-fa]::after {
                 content: attr(data-placeholder);
@@ -20,5 +20,17 @@
                 content: "چیزی بنویسید و یا برای گزینه\200cها ‘/’ را تایپ کنید...";
             }
         }
-    } */
+    }
+
+    .node-bullet, .node-number {
+        .editor-block-content {
+            @apply flex gap-3;
+            &::before {
+                content: "•";
+            }
+            &:has(>div[dir="rtl"]) {
+                direction: rtl;
+            }
+        }
+    }
 }
