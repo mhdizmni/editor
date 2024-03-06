@@ -1,5 +1,6 @@
 .editor {
-    [data-empty="true"]::after {
+    @apply w-full
+    /* [data-empty="true"]::after {
         @apply absolute top-0 text-neutral-400
     }
     .bn-react-node-view-renderer {
@@ -19,5 +20,5 @@
                 content: "چیزی بنویسید و یا برای گزینه\200cها ‘/’ را تایپ کنید...";
             }
         }
-    }
+    } */
 }
