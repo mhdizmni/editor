@@ -9,9 +9,10 @@ import { Spinner } from '@/components/spinner';
 import { Button } from '@/components/ui/button';
 import JsonView from "@uiw/react-json-view";
 import { Separator } from "@/components/ui/separator";
+// import Editor from "@/components/@editor/core/editor";
 
 export default function Home() {
-    const Editor = useMemo(() => dynamic(() => import("@/components/editor/bn/editor"), { ssr: false }), []);
+    const Editor = useMemo(() => dynamic(() => import("@/components/@editor/core/editor"), { ssr: false }), []);
 
     const { isSignedIn, isLoaded } = useAuth();
     const { user } = useUser();
@@ -22,6 +23,8 @@ export default function Home() {
         >
             <div className="md:flex-1 w-full min-h-96">
                     <Editor
+                        initialContent="<p>Hello World! 🌎️</p>"
+                        // editable={false}
                         onChange={(value) => {
                             setContent(JSON.parse(value))
                         }}
