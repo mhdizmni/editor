@@ -11,7 +11,7 @@ import JsonView from "@uiw/react-json-view";
 import { Separator } from "@/components/ui/separator";
 
 export default function Home() {
-    const Editor = useMemo(() => dynamic(() => import("@/components/editor/editor"), { ssr: false }), []);
+    const Editor = useMemo(() => dynamic(() => import("@/components/editor/bn/editor"), { ssr: false }), []);
 
     const { isSignedIn, isLoaded } = useAuth();
     const { user } = useUser();

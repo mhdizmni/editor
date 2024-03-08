@@ -17,8 +17,8 @@ import {
 
 import "@blocknote/react/style.css";
 import "./styles.css";
-import { Bullet, insertBullet } from "./bn/blocks/bullets";
-import { CustomBulletList } from "./bn/blocks/test";
+import { Bullet, insertBullet } from "./blocks/bullets";
+import { CustomBulletList } from "./blocks/test";
 
 export const schema = BlockNoteSchema.create({
     blockSpecs: {
