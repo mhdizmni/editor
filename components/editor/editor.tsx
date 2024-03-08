@@ -17,12 +17,13 @@ import {
 
 import "@blocknote/react/style.css";
 import "./styles.css";
-import { Bullet, insertBullet } from "./blocks/bullets";
+import { Bullet, insertBullet } from "./bn/blocks/bullets";
+import { CustomBulletList } from "./bn/blocks/test";
 
 export const schema = BlockNoteSchema.create({
     blockSpecs: {
       // enable the default blocks if desired
-      ...defaultBlockSpecs,
+    //   ...defaultBlockSpecs,
 
       bullet: Bullet
    
@@ -86,6 +87,14 @@ const Editor = ({
         },
         // collaboration,
         schema: schema,
+        _tiptapOptions: {
+            extensions: [
+                CustomBulletList
+            ],
+            onUpdate: () => {
+                console.log("hi updated")
+            } 
+        }
     });
     return (
         <BlockNoteView
@@ -113,7 +122,7 @@ const Editor = ({
                 getItems={async (query) =>
                     filterSuggestionItems(
                         [
-                            ...getDefaultReactSlashMenuItems(editor),
+                            // ...getDefaultReactSlashMenuItems(editor),
                             insertBullet(editor)
                         ],
                         query
