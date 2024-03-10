@@ -3,7 +3,10 @@
  */
 
 import ListItem from '@tiptap/extension-list-item'
-import { InputRule, mergeAttributes, nodeInputRule, wrappingInputRule } from "@tiptap/react"
+import { InputRule, ReactNodeViewRenderer, mergeAttributes, nodeInputRule, wrappingInputRule } from "@tiptap/react"
+// import DraggableItem from '../nodes/draggable/component'
+// import draggableItem from '../nodes/draggable/draggableItem'
+// import Director from '../nodes/director/component'
 
 
 ListItem.configure({
@@ -51,4 +54,7 @@ export const List = ListItem.extend({
     //     console.log("bullet")
     // },
     // draggable: true
+    // addNodeView() {
+    //     return ReactNodeViewRenderer(Director)
+    // }
 })

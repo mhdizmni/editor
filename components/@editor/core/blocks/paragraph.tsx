@@ -3,10 +3,9 @@
  */
 
 import BulletList from "@tiptap/extension-bullet-list"
-import TextStyle from "@tiptap/extension-text-style"
-import { InputRule, ReactNodeViewRenderer, mergeAttributes, nodeInputRule, wrappingInputRule } from "@tiptap/react"
-import { List } from "./list-items"
 import View from "../nodes/view/view"
+import Paragraph from "@tiptap/extension-paragraph"
+import { ReactNodeViewRenderer } from "@tiptap/react"
 
 
 BulletList.configure({
@@ -14,21 +13,21 @@ BulletList.configure({
         class: "mitism",
     },
 })
-export const Bullet = BulletList.extend({
-    addKeyboardShortcuts() {
-        return {
-            "Mod-l": () => this.editor.commands.toggleBulletList(),
-        }
-    },
-    addOptions() {
-        return {
-            ...this.parent?.(),
-            HTMLAttributes: {
-                class: "bulletList",
-                dir: "ltr",
-            },
-        }
-    },
+export const Paraph = Paragraph.extend({
+    // addKeyboardShortcuts() {
+    //     return {
+    //         "Mod-l": () => this.editor.commands.toggleBulletList(),
+    //     }
+    // },
+    // addOptions() {
+    //     return {
+    //         ...this.parent?.(),
+    //         HTMLAttributes: {
+    //             class: "bulletList",
+    //             dir: "ltr",
+    //         },
+    //     }
+    // },
     // addInputRules() {
     //     let inputRule = wrappingInputRule({
     //         find: /[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]/,
@@ -51,18 +50,18 @@ export const Bullet = BulletList.extend({
     //       },
     //     }
     //   },
-    parseHTML() {
-        return [
-            { tag: 'div' },
-        ]
-    },
+    // parseHTML() {
+    //     return [
+    //         { tag: 'div' },
+    //     ]
+    // },
     
-    renderHTML({ HTMLAttributes }) {
-        return ['div', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0]
-    },
-    // addNodeView() {
-    //     return ReactNodeViewRenderer(View)
-    //   },
+    // renderHTML({ HTMLAttributes }) {
+    //     return ['div', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0]
+    // },
+    addNodeView() {
+        return ReactNodeViewRenderer(View)
+      },
     // onUpdate() {
     //     console.log(this)
     // },

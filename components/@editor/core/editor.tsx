@@ -1,14 +1,27 @@
 /**
  * npm install @tiptap/react @tiptap/pm @tiptap/starter-kit
- * 
+ * @tiptap/extension-hard-break
  */
 
 'use client'
 
 import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
+// import StarterKit from '@tiptap/starter-kit'
+// import Document from '@tiptap/extension-document'
+import Paragraph from '@tiptap/extension-paragraph'
+import Block from './extentions/block'
+import Document from './extentions/document'
+import Text from '@tiptap/extension-text'
+import HardBreak from '@tiptap/extension-hard-break'
 import { Bullet } from './blocks/bullet';
 import { List } from './blocks/list-items';
+import BulletList from '@tiptap/extension-bullet-list'
+import { Placeholder } from './extentions/placeholder'
+// // import { BlockHandleMenu } from './components/menus/block-handle/block-handle';
+// import { HoverPlugin } from './plugins/hover';
+// import { Root } from './nodes/blocks/block'
+// import Dropcursor from './blocks/dropcursor/dropcursor'
+// import { Paraph } from './blocks/paragraph'
 
 interface EditorProps {
     initialContent?: string;
@@ -34,13 +47,23 @@ const Editor = ({
             },
         },
         extensions: [
-            StarterKit,
-            Bullet,
-            List
+            // StarterKit,
+            Block,
+            Document,
+            Text,
+            HardBreak,
+            Paragraph,
+            BulletList,
+            List,
+            Placeholder
+            // HoverPlugin,
+            // Dropcursor
         ],
         onUpdate: ({ editor }) => {
             onChange && onChange(JSON.stringify(
-                editor.getJSON(),
+                editor.getJSON()
+                // .content
+                ,
                 null,
                 2
             ))
@@ -48,9 +71,13 @@ const Editor = ({
     })
 
   return (
-    <EditorContent
-        editor={editor}
-    />
+    <>
+        <EditorContent
+            spellCheck={false}
+            editor={editor}
+        />
+        {/* <BlockHandleMenu editor={editor} /> */}
+    </>
   )
 }
 

@@ -94,6 +94,6 @@ const config = {
     require('tailwindcss-animate'),
     nextui()
   ],
-} satisfies Config
+}
 
 export default config

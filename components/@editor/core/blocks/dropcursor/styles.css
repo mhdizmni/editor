@@ -1,0 +1,6 @@
+.mtsm-dropcursor {
+    @apply rounded-[2px];
+    &::after {
+        content: "hi ther";
+    }
+}
