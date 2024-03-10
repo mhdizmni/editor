@@ -1,0 +1,7 @@
+.node-blockContainer {
+    &.focus {
+        [data-block-handle] {
+            @apply opacity-100;
+        }
+    }
+}

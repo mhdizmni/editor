@@ -10,6 +10,8 @@ import {
     Plus
 } from "lucide-react";
 
+import "./styles.css";
+
 export const BlockNodeView = ({
     node,
     getPos,
@@ -47,7 +49,7 @@ export const BlockNodeView = ({
   return (
     <NodeViewWrapper as="div" className={`group w-full flex gap-1 items-start justify-start`} data-id={attrs.id}>
         {editor.isEditable && (
-            <div className="flex items-center gap-1 text-neutral-500 opacity-0 transition-opacity group-hover:opacity-100" dir="ltr">
+            <div data-block-handle className="flex items-center gap-1 text-neutral-500 opacity-0 transition-opacity group-hover:opacity-100" dir="ltr">
                 <Button
                     variant="ghost"
                     className="p-0 h-6 w-6 rounded"
@@ -58,7 +60,6 @@ export const BlockNodeView = ({
                 <Button
                     variant="ghost"
                     className="p-0 h-6 max-w-6 rounded"
-                    onClick={deleteNode}
                 >
                     <GripVertical size={16} />
                 </Button>

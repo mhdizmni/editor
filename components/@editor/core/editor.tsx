@@ -9,6 +9,7 @@ import { useEditor, EditorContent } from '@tiptap/react'
 // import StarterKit from '@tiptap/starter-kit'
 // import Document from '@tiptap/extension-document'
 import Paragraph from '@tiptap/extension-paragraph'
+import Focus from '@tiptap/extension-focus'
 import Block from './extentions/block'
 import Document from './extentions/document'
 import Text from '@tiptap/extension-text'
@@ -55,7 +56,11 @@ const Editor = ({
             Paragraph,
             BulletList,
             List,
-            Placeholder
+            Placeholder,
+            Focus.configure({
+                className: 'focus',
+                mode: 'shallowest'
+            })
             // HoverPlugin,
             // Dropcursor
         ],
