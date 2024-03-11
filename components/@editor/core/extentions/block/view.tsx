@@ -18,7 +18,6 @@ export const BlockNodeView = ({
     editor,
     deleteNode
 }: NodeViewProps) => {
-    const [selected, setSelected] = useState<boolean>(false);
     const isTable = useMemo(() => {
         const { content } = node.content as any;
 
@@ -30,7 +29,7 @@ export const BlockNodeView = ({
     const createNodeAfter = () => {
         const pos = getPos() + node.nodeSize;
         editor.commands.insertContentAt(pos, {
-            type: "blockContainer",
+            type: "container",
             content: [
                 {
                     type: "paragraph",
@@ -47,26 +46,33 @@ export const BlockNodeView = ({
     };
 
   return (
-    <NodeViewWrapper as="div" className={`group w-full flex gap-1 items-start justify-start`} data-id={attrs.id}>
-        {editor.isEditable && (
-            <div data-block-handle className="flex items-center gap-1 text-neutral-500 opacity-0 transition-opacity group-hover:opacity-100" dir="ltr">
-                <Button
-                    variant="ghost"
-                    className="p-0 h-6 w-6 rounded"
-                    onClick={createNodeAfter}
-                >
-                    <Plus size={16} />
-                </Button>
-                <Button
-                    variant="ghost"
-                    className="p-0 h-6 max-w-6 rounded"
-                >
-                    <GripVertical size={16} />
-                </Button>
-            </div>
-        )}
+    // <NodeViewWrapper className={`group w-full flex gap-1 items-start justify-start`} data-id={attrs.id}>
+    //     {editor.isEditable && (
+    //         <div data-block-handle className="flex items-center gap-1 text-neutral-500 opacity-0 transition-opacity group-hover:opacity-100" dir="ltr">
+    //             <Button
+    //                 variant="ghost"
+    //                 className="p-0 h-6 w-6 rounded"
+    //                 onClick={createNodeAfter}
+    //             >
+    //                 <Plus size={16} />
+    //             </Button>
+    //             <Button
+    //                 variant="ghost"
+    //                 className="p-0 h-6 max-w-6 rounded"
+    //             >
+    //                 <GripVertical size={16} />
+    //             </Button>
+    //         </div>
+    //     )}
+    //     <NodeViewContent
+    //         // check for columns
+    //         className={`node-content w-full ${isTable ? "ml-6" : ""}`}
+    //     />
+    // </NodeViewWrapper>
+    <NodeViewWrapper>
         <NodeViewContent
-            className={`node-content w-full ${isTable ? "ml-6" : ""}`}
+        className="group-hover:text-red"
+            // className={`node-content w-full ${isTable ? "ml-6" : ""}`}
         />
     </NodeViewWrapper>
   );

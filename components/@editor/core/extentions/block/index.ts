@@ -2,7 +2,7 @@ import { Node, mergeAttributes } from "@tiptap/core";
 import { ReactNodeViewRenderer } from "@tiptap/react";
 import { BlockNodeView } from "./view";
 
-import { v4 } from 'uuid';
+import { v4 } from "uuid";
 
 
 export interface BlockOptions {
@@ -11,7 +11,7 @@ export interface BlockOptions {
 
 declare module "@tiptap/core" {
     interface Commands<ReturnType> {
-        blockContainer: {
+        container: {
             /**
              * Toggle a blockContainer
              */
@@ -19,38 +19,66 @@ declare module "@tiptap/core" {
         };
     }
 }
+const id = v4();
 
 const Block = Node.create<BlockOptions>({
-    name: "blockContainer",
+    name: "container",
 
-    priority: 1000,
-
-    group: "blockContainer",
-
+    group: "container",
+    
     content: "block",
 
+    priority: 1000,
+    
     draggable: true,
-
+    
     selectable: true,
-
+    
     inline: false,
-
+    
     addOptions() {
         return {
-            HTMLAttributes: {},
+            HTMLAttributes: {
+                class: "container",
+                "data-type": "container",
+                id: id
+            },
         };
+    },
+    
+    addAttributes() {
+        return {
+            id: {
+                default: id,
+            }
+        }
     },
 
     parseHTML() {
-        return [{ tag: 'div[data-type="d-block"]' }];
+        return [
+            {
+                tag: "div[data-type='container']",
+            }
+        ];
     },
 
     renderHTML({ HTMLAttributes }) {
         return [
             "div",
-            mergeAttributes(HTMLAttributes, { "data-type": "d-block" }),
+            mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
             0,
         ];
+    },
+    
+    addNodeView() {
+        return ReactNodeViewRenderer(BlockNodeView, {
+            as: "div",
+            className: "group",
+            attrs: {
+                id: this.options.HTMLAttributes.id,
+                "data-type": this.options.HTMLAttributes["data-type"]
+            }
+        });
     },
 
     addCommands() {
@@ -78,10 +106,6 @@ const Block = Node.create<BlockOptions>({
         };
     },
 
-    addNodeView() {
-        return ReactNodeViewRenderer(BlockNodeView);
-    },
-
     addKeyboardShortcuts() {
         return {
             "Mod-Alt-0": () => this.editor.commands.setBlock(),
@@ -93,7 +117,7 @@ const Block = Node.create<BlockOptions>({
 
                 const parent = $head.node($head.depth - 1);
 
-                if (parent.type.name !== "blockContainer") return false;
+                if (parent.type.name !== "container") return false;
 
                 let currentActiveNodeTo = -1;
 
@@ -123,14 +147,6 @@ const Block = Node.create<BlockOptions>({
                         .run();
             },
         };
-    },
-    addAttributes() {
-        // Return an object with attribute configuration
-        return {
-            id: {
-                default: v4()
-            }
-        }
     },
 });
 export default Block

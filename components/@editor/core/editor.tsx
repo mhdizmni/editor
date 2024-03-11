@@ -67,7 +67,7 @@ const Editor = ({
         onUpdate: ({ editor }) => {
             onChange && onChange(JSON.stringify(
                 editor.getJSON()
-                // .content
+                .content
                 ,
                 null,
                 2
