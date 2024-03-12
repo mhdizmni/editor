@@ -18,6 +18,7 @@ import { Bullet } from './blocks/bullet';
 import { List } from './blocks/list-items';
 import BulletList from '@tiptap/extension-bullet-list'
 import { Placeholder } from './extentions/placeholder'
+import Dropcursor from '@tiptap/extension-dropcursor'
 // // import { BlockHandleMenu } from './components/menus/block-handle/block-handle';
 // import { HoverPlugin } from './plugins/hover';
 // import { Root } from './nodes/blocks/block'
@@ -60,9 +61,12 @@ const Editor = ({
             Focus.configure({
                 className: 'focus',
                 mode: 'shallowest'
-            })
+            }),
             // HoverPlugin,
-            // Dropcursor
+            Dropcursor.configure({
+                color: "#a0c9f2",
+                width: 8,
+            })
         ],
         onUpdate: ({ editor }) => {
             onChange && onChange(JSON.stringify(
